@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ECG Data Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="dashboard-container">
+        <aside class="sidebar">
+            <div class="logo">
+                <h2>ECG Dashboard</h2>
+            </div>
+            <nav class="nav-menu">
+                <a href="#" class="nav-item active" data-section="overview">
+                    <span class="nav-icon">📊</span>
+                    <span>Overview</span>
+                </a>
+                <a href="#" class="nav-item" data-section="explorer">
+                    <span class="nav-icon">🔍</span>
+                    <span>Data Explorer</span>
+                </a>
+                <a href="#" class="nav-item" data-section="visualization">
+                    <span class="nav-icon">📈</span>
+                    <span>Visualization</span>
+                </a>
+                <a href="#" class="nav-item" data-section="analysis">
+                    <span class="nav-icon">🧪</span>
+                    <span>Analysis</span>
+                </a>
+            </nav>
+        </aside>
+
+        <main class="main-content">
+            <header class="top-bar">
+                <h1 id="section-title">Overview</h1>
+                <div class="upload-section">
+                    <input type="file" id="csvFileInput" accept=".csv" style="display: none;">
+                    <button class="upload-btn" id="uploadBtn">Upload CSV</button>
+                </div>
+            </header>
+
+            <div class="content-area">
+                <section id="overview" class="section active">
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <div class="stat-icon">📋</div>
+                            <div class="stat-content">
+                                <h3>Total Classes</h3>
+                                <p class="stat-value" id="totalClasses">-</p>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon">✅</div>
+                            <div class="stat-content">
+                                <h3>Normal</h3>
+                                <p class="stat-value" id="normalCount">-</p>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon">⚡</div>
+                            <div class="stat-content">
+                                <h3>Arrhythmia</h3>
+                                <p class="stat-value" id="arrhythmiaCount">-</p>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon">💓</div>
+                            <div class="stat-content">
+                                <h3>Stress</h3>
+                                <p class="stat-value" id="stressCount">-</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="charts-row">
+                        <div class="chart-card">
+                            <h3>Distribution by Class</h3>
+                            <canvas id="pieChart"></canvas>
+                        </div>
+                        <div class="chart-card">
+                            <h3>Data Quality Check</h3>
+                            <div id="qualityCheck" class="quality-list">
+                                <p class="placeholder-text">Upload CSV to see data quality metrics</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="explorer" class="section">
+                    <div class="explorer-controls">
+                        <div class="search-box">
+                            <input type="text" id="searchInput" placeholder="Search data...">
+                        </div>
+                        <div class="filter-group">
+                            <label>Class Filter:</label>
+                            <select id="classFilter">
+                                <option value="all">All</option>
+                                <option value="normal">Normal</option>
+                                <option value="arrhythmia">Arrhythmia</option>
+                                <option value="stress">Stress</option>
+                            </select>
+                        </div>
+                        <div class="filter-group">
+                            <label>Heart Rate Range:</label>
+                            <input type="number" id="hrMin" placeholder="Min" class="range-input">
+                            <span>to</span>
+                            <input type="number" id="hrMax" placeholder="Max" class="range-input">
+                            <button id="applyRange" class="apply-btn">Apply</button>
+                        </div>
+                    </div>
+                    <div class="data-table-container">
+                        <table id="dataTable">
+                            <thead id="tableHead"></thead>
+                            <tbody id="tableBody">
+                                <tr>
+                                    <td colspan="100" class="placeholder-text">Upload CSV to explore data</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="pagination" id="pagination"></div>
+                </section>
+
+                <section id="visualization" class="section">
+                    <div class="viz-grid">
+                        <div class="chart-card large">
+                            <h3>Heart Rate Distribution (Bar Chart)</h3>
+                            <canvas id="barChart"></canvas>
+                        </div>
+                        <div class="chart-card large">
+                            <h3>Heart Rate Over Time (Line Chart)</h3>
+                            <canvas id="lineChart"></canvas>
+                        </div>
+                        <div class="chart-card large">
+                            <h3>Heart Rate vs QRS Duration (Scatter Plot)</h3>
+                            <canvas id="scatterChart"></canvas>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="analysis" class="section">
+                    <div class="analysis-grid">
+                        <div class="analysis-card">
+                            <h3>Statistical Summary</h3>
+                            <div id="statsSummary" class="stats-content">
+                                <p class="placeholder-text">Upload CSV to see statistical analysis</p>
+                            </div>
+                        </div>
+                        <div class="analysis-card">
+                            <h3>Class Distribution Analysis</h3>
+                            <div id="classAnalysis" class="stats-content">
+                                <p class="placeholder-text">Upload CSV to see class analysis</p>
+                            </div>
+                        </div>
+                        <div class="analysis-card">
+                            <h3>Heart Rate Insights</h3>
+                            <div id="hrInsights" class="stats-content">
+                                <p class="placeholder-text">Upload CSV to see heart rate insights</p>
+                            </div>
+                        </div>
+                        <div class="analysis-card">
+                            <h3>Recommendations</h3>
+                            <div id="recommendations" class="stats-content">
+                                <p class="placeholder-text">Upload CSV to see recommendations</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <script type="module" src="main.js"></script>
+</body>
+</html>
